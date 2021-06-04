@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+{{>headerlinks}}
+
+<body onload="timer()">
+    {{>navbar}}
+
+    <!---------------main header------------>
+
+    <div class="container-fluid main_header">
+        <div class="row">
+            <div class="col-md-10 col-12 mx-auto">
+
+                <div class="main_content">
+                    <form class="temp_form">
+                        <input type="text" name="" id="cityName" placeholder="Enter Your city Name" autocomplete="off">
+                        <input type="submit" value="search" id="submitBtn">
+                    </form>
+                </div>
+                <div class="tempInformation">
+                    <div class="top_layer">
+                        <p id="day">weekday</p>
+                        <p id="today_data">date-month</p>
+                        <p id="cr_time">Time</p>
+                    </div>
+<div class="main_layer">
+    <p id="city_name">City</p>
+    <div class="middle_layer data_hide">
+<p id="temp"><span id="temp_real_val">0</span><sup>o</sup>C</p>
+<p id="temp_status"><i class="fa fa-cloud" area-hidden="true"></i></p>
+    </div>
+</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br><br>
+    <!--------------footer-------------------->
+
+    {{>footer}}
+<script src="js/main.js"></script>
+<script>
+    const day = document.getElementById('day');
+    const getCurrentDay = () =>{
+
+  var weekday = new Array(7);
+weekday[0] = "Sunday";
+weekday[1] = "Monday";
+weekday[2] = "Tuesday";
+weekday[3] = "Wednesday";
+weekday[4] = "Thursday";
+weekday[5] = "Friday";
+weekday[6] = "Saturday";
+let currentTime = new Date();
+days = (weekday[currentTime.getDay()]);
+const day = document.getElementById('day');
+day.innerText=days;
+};
+getCurrentDay();
+
+const curDate = document.getElementById("today_data");
+const getCurrentDate=()=>{
+
+var months = [
+'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'
+];
+
+var now = new Date();
+var month = (months[now.getMonth()]);
+var date = now.getDate();
+
+return `${month} - ${date}`;
+};
+curDate.innerHTML = getCurrentDate();
+
+timer();
+
+function timer(){
+ var currentTime = new Date().toLocaleTimeString();
+var hours = currentTime.getHours();
+var minutes = currentTime.getMinutes();
+var sec = currentTime.getSeconds();
+if (minutes < 10){
+    minutes = "0" + minutes
+}
+if (sec < 10){
+    sec = "0" + sec
+}
+var t_str = hours + ":" + minutes + ":" + sec + " ";
+if(hours > 11){
+    t_str += "PM";
+} else {
+   t_str += "AM";
+}
+ document.getElementById('cr_time').innerHTML = t_str;
+ setTimeout(timer,1000);
+}
+</script>
+</body>
+
+</html>
